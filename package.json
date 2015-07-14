@@ -1,0 +1,25 @@
+{
+  "name": "DesignAndAnalisisOfAlgorithms",
+  "version": "1.0.0",
+  "description": "This repository is full of programming algorithms",
+  "main": "index.js",
+  "scripts": {
+    "test": "node test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/alexsotocx/DesignAndAnalisisOfAlgorithms1.git"
+  },
+  "keywords": [
+    "algorithms"
+  ],
+  "author": "Alexsotocx",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/alexsotocx/DesignAndAnalisisOfAlgorithms1/issues"
+  },
+  "homepage": "https://github.com/alexsotocx/DesignAndAnalisisOfAlgorithms1",
+  "dependencies": {
+    "assert": "^1.3.0"
+  }
+}
