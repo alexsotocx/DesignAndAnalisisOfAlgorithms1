@@ -1,0 +1,75 @@
+var Sort = {
+	/*
+		* Quicksort
+		* Running time in average is O(nlog n)
+		* Using the master method with some assumtions the pivot always divide
+		* The array in two exact halfs so B = 2
+		* Always there are two recursive calls A = 2
+		* The partition method takes O(N) so D = 1
+		* A = B^D => The running time is O(N^D Log n)
+	*/
+	quickSort: function(inputArray, pivotChooser) {
+		var N = inputArray.length
+		var swaps = 0;
+		//If the method is not defined use the random
+		pivotChooser = pivotChooser || this.pivotMethod.randomElement //Default random
+
+
+		/*
+			*
+			* Partition the vector using swaps
+			*
+		*/
+		function partition(lo, hi) {
+
+			//Swaps two elements of a array
+			function swap(x, y) {
+				swaps++;
+				inputArray[y] = [inputArray[x], inputArray[x] = inputArray[y]][0]
+			}
+
+			var p = pivotChooser(lo, hi); //Index of the pivot
+			swap(lo, p); //put the pivot at the start
+			p = lo;
+			var i = p + 1;
+			var j = i;
+			for (j; j <= hi; j++) {
+				if(inputArray[p] >= inputArray[j])
+					swap(i++,j);
+			}
+			p = i - 1;
+			swap(lo, p);
+			return p;
+		}
+
+		function sortArray(lo, hi) {
+			if(hi <= lo) return; //if there is at most 1 element it's already ordered
+			var pivotIndex = partition(lo, hi);
+			sortArray(lo, pivotIndex - 1); //Sort the elements less or equal to the pivot
+			sortArray(pivotIndex + 1, hi); //Sort the elements greater than to the pivot
+		}
+
+		sortArray(0, N - 1)
+
+		return {
+			array: inputArray,
+			swaps: swaps
+		};
+	},
+
+	pivotMethod: {
+		firstElement: function(lo, hi) {
+			return lo;
+		},
+		lastElement: function(lo, hi) {
+			return hi;
+		},
+		randomElement: function(lo, hi) {
+			return Math.floor((Math.random() * (hi - lo + 1)) + lo);
+		},
+		middleElement: function(lo, hi) {
+			return Math.floor((lo + hi) / 2);
+		}
+	}
+}
+module.exports = Sort;
