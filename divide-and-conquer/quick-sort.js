@@ -11,6 +11,7 @@ var Sort = {
 	quickSort: function(inputArray, pivotChooser) {
 		var N = inputArray.length
 		var swaps = 0;
+		var comparisons = 0;
 		//If the method is not defined use the random
 		pivotChooser = pivotChooser || this.pivotMethod.randomElement //Default random
 
@@ -21,7 +22,7 @@ var Sort = {
 			*
 		*/
 		function partition(lo, hi) {
-			var p = pivotChooser(lo, hi); //Index of the pivot
+			var p = pivotChooser(lo, hi, inputArray); //Index of the pivot
 			swap(lo, p, true); //put the pivot at the start
 			p = lo;
 			var i = p + 1;
@@ -45,6 +46,7 @@ var Sort = {
 
 		function sortArray(lo, hi) {
 			if(hi <= lo) return; //if there is at most 1 element it's already ordered
+			comparisons += hi - lo;
 			var pivotIndex = partition(lo, hi);
 			sortArray(lo, pivotIndex - 1); //Sort the elements less or equal to the pivot
 			sortArray(pivotIndex + 1, hi); //Sort the elements greater than to the pivot
@@ -54,22 +56,29 @@ var Sort = {
 
 		return {
 			array: inputArray,
-			swaps: swaps
+			swaps: swaps,
+			comparisons: comparisons
 		};
 	},
 
 	pivotMethod: {
-		firstElement: function(lo, hi) {
+		firstElement: function(lo, hi, inputArray) {
 			return lo;
 		},
-		lastElement: function(lo, hi) {
+		lastElement: function(lo, hi, inputArray) {
 			return hi;
 		},
-		randomElement: function(lo, hi) {
+		randomElement: function(lo, hi, inputArray) {
 			return Math.floor((Math.random() * (hi - lo + 1)) + lo);
 		},
-		middleElement: function(lo, hi) {
-			return Math.floor((lo + hi) / 2);
+		middleElement: function(lo, hi, inputArray) {
+			var mid = Math.floor((lo + hi) / 2);
+			if((inputArray[mid] > inputArray[lo] && inputArray[mid] < inputArray[hi]) || (inputArray[mid] > inputArray[hi] && inputArray[mid] < inputArray[lo]))
+				return mid;
+			else if((inputArray[lo] > inputArray[mid] && inputArray[lo] < inputArray[hi]) || (inputArray[lo] > inputArray[hi] && inputArray[lo] < inputArray[mid]))
+				return lo;
+			else
+				return hi;
 		}
 	}
 }

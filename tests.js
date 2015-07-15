@@ -64,5 +64,45 @@ function testQuickSort() {
 }
 
 
+
+
+function quick(arguments) {
+	//First 162085
+	//Second 164123
+	//Last 138382
+	var fs  = require("fs");
+	var Sort = require('./divide-and-conquer/quick-sort');
+	var inputArray = fs.readFileSync('./divide-and-conquer/QuickSort.txt', 'utf8').split("\n").map(function  (number) {
+		return parseInt(number);
+	});
+	inputArray.splice(10000,1);
+
+
+	var output = Sort.quickSort(inputArray, Sort.pivotMethod.middleElement);
+	assert.equal(output.comparisons, 138382);
+	//*********************************
+
+	var inputArray = fs.readFileSync('./divide-and-conquer/QuickSort.txt', 'utf8').split("\n").map(function  (number) {
+		return parseInt(number);
+	});
+	inputArray.splice(10000,1);
+
+
+	var output = Sort.quickSort(inputArray, Sort.pivotMethod.firstElement);
+	assert.equal(output.comparisons, 162085);
+
+	//*********************************
+
+	var inputArray = fs.readFileSync('./divide-and-conquer/QuickSort.txt', 'utf8').split("\n").map(function  (number) {
+		return parseInt(number);
+	});
+	inputArray.splice(10000,1);
+
+
+	var output = Sort.quickSort(inputArray, Sort.pivotMethod.lastElement);
+	assert.equal(output.comparisons, 164123);
+}
+
+quick();
 testBinarySearch();
 testQuickSort();
