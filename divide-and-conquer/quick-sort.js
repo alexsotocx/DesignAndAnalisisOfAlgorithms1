@@ -21,13 +21,6 @@ var Sort = {
 			*
 		*/
 		function partition(lo, hi) {
-
-			//Swaps two elements of a array
-			function swap(x, y) {
-				swaps++;
-				inputArray[y] = [inputArray[x], inputArray[x] = inputArray[y]][0]
-			}
-
 			var p = pivotChooser(lo, hi); //Index of the pivot
 			swap(lo, p); //put the pivot at the start
 			p = lo;
@@ -40,6 +33,13 @@ var Sort = {
 			p = i - 1;
 			swap(lo, p);
 			return p;
+		}
+
+		//Swaps two elements of a array
+		function swap(x, y) {
+			if(x == y) return;
+			swaps++;
+			inputArray[y] = [inputArray[x], inputArray[x] = inputArray[y]][0]
 		}
 
 		function sortArray(lo, hi) {
