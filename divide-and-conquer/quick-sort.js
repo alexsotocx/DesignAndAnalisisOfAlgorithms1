@@ -22,23 +22,24 @@ var Sort = {
 		*/
 		function partition(lo, hi) {
 			var p = pivotChooser(lo, hi); //Index of the pivot
-			swap(lo, p); //put the pivot at the start
+			swap(lo, p, true); //put the pivot at the start
 			p = lo;
 			var i = p + 1;
 			var j = i;
 			for (j; j <= hi; j++) {
 				if(inputArray[p] >= inputArray[j])
-					swap(i++,j);
+					swap(i++,j, true);
 			}
 			p = i - 1;
-			swap(lo, p);
+			swap(lo, p, true);
 			return p;
 		}
 
 		//Swaps two elements of a array
-		function swap(x, y) {
+		function swap(x, y, count) {
 			if(x == y) return;
-			swaps++;
+			if(count)
+				swaps++;
 			inputArray[y] = [inputArray[x], inputArray[x] = inputArray[y]][0]
 		}
 
