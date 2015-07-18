@@ -103,6 +103,28 @@ function quick(arguments) {
 	assert.equal(output.comparisons, 164123);
 }
 
+function arrayOfArraysSort() {
+	console.log("******************");
+	var Sort = require('./divide-and-conquer/merge-sort');
+	var inputArray = [[20,1], [2, 3], [2,2], [1, 0], [0.5, 1]];
+	inputArray = Sort.mergeSort(inputArray)
+	console.log(inputArray);
+}
+
+function ClosestPair() {
+  var inputArray = [
+		[0, 2],
+		[6, 67],
+		[43, 71],
+		[39, 107],
+		[189, 140]
+	];
+	var ClosestPair = require('./divide-and-conquer/closest-pair');
+	console.log(ClosestPair.find(inputArray));
+}
+
 quick();
 testBinarySearch();
 testQuickSort();
+arrayOfArraysSort();
+ClosestPair();
