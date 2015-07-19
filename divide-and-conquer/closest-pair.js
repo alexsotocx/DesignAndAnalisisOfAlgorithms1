@@ -1,7 +1,14 @@
+/**
+	* Closest pair algorithm finds the closest point in a array
+	* The algorithm uses merge sort for sorting the points using the x coordinate
+	* And uses an dividing conquer approach with a merge routine of time complexity O(n)
+	* Using the Master Method: T(n) <= 2T(N/2) + O(N)
+	* First case of the master method giving a O(NLog N) case.
+*/
+
 const Sort = require('./merge-sort');
 var ClosestPair = {
 	find: function(inputArray) {
-		console.log(inputArray);
 		const distance = this.util.distance;
 		const INFINITE = this.util.INFINITE;
 		const min = this.util.min;
@@ -16,8 +23,8 @@ var ClosestPair = {
 			var cp = inputArray[mid];
 			var possiblePoints = [];
 			for(var i = lo; i<= hi; i++){
-				//Math.abs(inputArray[i][1] - cp[1]) <= d &&
-				if(Math.abs(inputArray[i][0] - cp[0]) <= d){
+				//
+				if(Math.abs(inputArray[i][1] - cp[1]) <= d && Math.abs(inputArray[i][0] - cp[0]) <= d/2){
 					possiblePoints.push(i);
 				}
 			}
@@ -28,8 +35,8 @@ var ClosestPair = {
 			}
 			for(var i = 0; i < possiblePoints.length - 1; i++){
 				for(var j= i + 1; j < possiblePoints.length; j++){
-					var dp = distance(i,j, inputArray);
-					if(d < dp){
+					var dp = distance(possiblePoints[i],possiblePoints[j], inputArray);
+					if(d > dp){
 						ans = {
 							i: i,
 							j: j,
@@ -61,17 +68,13 @@ var ClosestPair = {
 				};
 			}else{
 				var mid = Math.floor((hi + lo) / 2) //Find the half of the subarray
-				var d1 = solve(lo, mid) //order the first half
-				console.log(d1);
-				var d2 = solve(mid + 1, hi) //order  the second half
-				console.log(d2);
-				var d3 = closestSplitPair(lo, mid, hi, Math.min(d1.d,d2.d)) //Merge each half (Join)
-				console.log(d3);
+				var d1 = solve(lo, mid) //find the closest pair in the first half
+				var d2 = solve(mid + 1, hi) //find the closest pair in the second half
+				var d3 = closestSplitPair(lo, mid, hi, Math.min(d1.d,d2.d)); //Merge each half (Join)
 				return min(d1, d2, d3)
 			}
 
 		}
-
 
 		return solve(0, N - 1);
 	},

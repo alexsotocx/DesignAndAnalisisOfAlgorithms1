@@ -112,15 +112,29 @@ function arrayOfArraysSort() {
 }
 
 function ClosestPair() {
+	var ClosestPair = require('./divide-and-conquer/closest-pair');
   var inputArray = [
+		[0,0],
+		[-4, 1],
+		[-7, -2],
+		[4, 5],
+		[1, 1]
+
+	];
+	output = ClosestPair.find(inputArray)
+	assert.equal(output.d.toFixed(6), 1.414214);
+	console.log(output);
+
+	inputArray = [
 		[0, 2],
 		[6, 67],
 		[43, 71],
 		[39, 107],
 		[189, 140]
 	];
-	var ClosestPair = require('./divide-and-conquer/closest-pair');
-	console.log(ClosestPair.find(inputArray));
+	output = ClosestPair.find(inputArray)
+	assert.equal(output.d.toFixed(4), 36.2215);
+	console.log(output);
 }
 
 quick();
