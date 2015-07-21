@@ -5,12 +5,11 @@
  */
 
 
-var UnionFind = function(n, pathCompression) {
+var UnionFind = function(n) {
 	var self = this;
 	self.id = new Array(n);
 	self.weight = new Array(n);
 	self.groups = n;
-	self.pathCompression = pathCompression !== false;
 
 	self.intialize = function(n) {
 		for (var i = 0; i < n; i++) {
@@ -22,13 +21,9 @@ var UnionFind = function(n, pathCompression) {
 	self.intialize(n);
 
 	self.root = function(x) {
-		while (self.id[x] != x) {
-			if(self.pathCompression)
-				self.id[x] = self.id[self.id[x]];
-			x = self.id[x];
-		}
-		return x;
+		return (x == self.id[x])? x:self.id[x] = self.root(self.id[x]);
 	};
+
 	self.connected = function(x, y) {
 		return self.root(x) == self.root(y);
 	};

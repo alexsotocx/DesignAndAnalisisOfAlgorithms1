@@ -137,7 +137,8 @@ function ClosestPair() {
 	console.log(output);
 }
 function UnionFindTest() {
-	const UnionFind = require('./DataStructures/union-find/union-find.js');
+	console.log("*************** Union Find ****************************");
+	const UnionFind = require('./DataStructures/union-find.js');
 	var uf = new UnionFind(10, false);
 	uf.union(1,3);
 	uf.union(9,8);
@@ -149,7 +150,7 @@ function UnionFindTest() {
 	uf.union(3,8);
 	uf.union(0,7);
 	console.log(uf.id);
-	const correctAnswer = [9, 0, 9, 1, 5, 9, 0, 9, 9, 9];
+	const correctAnswer = [9,0,9,0,5,9,0,9,9,9];
 	assert.equal(uf.id.join(), correctAnswer.join());
 }
 
