@@ -3,9 +3,9 @@
  *
  *  Union find with pathcompression and weight connected(in Log n) and union O(Log n)
  */
-exports.UnionFind = UnionFind;
 
-function UnionFind(n, pathCompression) {
+
+var UnionFind = function(n, pathCompression) {
 	var self = this;
 	self.id = new Array(n);
 	self.weight = new Array(n);
@@ -54,3 +54,4 @@ function UnionFind(n, pathCompression) {
 	}
 }
 
+module.exports = UnionFind;
