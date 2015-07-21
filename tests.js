@@ -136,9 +136,26 @@ function ClosestPair() {
 	assert.equal(output.d.toFixed(4), 36.2215);
 	console.log(output);
 }
+function UnionFindTest() {
+	const UnionFind = require('./DataStructures/union-find/union-find.js').UnionFind;
+	var uf = new UnionFind(10, false);
+	uf.union(1,3);
+	uf.union(9,8);
+	uf.union(8,2);
+	uf.union(0,6);
+	uf.union(5,4);
+	uf.union(6,1);
+	uf.union(2,5);
+	uf.union(3,8);
+	uf.union(0,7);
+	console.log(uf.id);
+	const correctAnswer = [9, 0, 9, 1, 5, 9, 0, 9, 9, 9];
+	assert.equal(uf.id.join(), correctAnswer.join());
+}
 
 quick();
 testBinarySearch();
 testQuickSort();
 arrayOfArraysSort();
 ClosestPair();
+UnionFindTest();
