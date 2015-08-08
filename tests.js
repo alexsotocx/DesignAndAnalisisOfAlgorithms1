@@ -173,10 +173,84 @@ function testRSelect() {
 	assert.equal(output.element, 20);
 }
 
-quick();
+function testBFS() {
+	graph = [
+		[1, 2],
+		[0, 2, 3],
+		[0, 1, 3, 4],
+		[1, 2, 4, 5],
+		[2, 3, 5],
+		[3, 4],
+		[]
+	]
+	startVertex = 0;
+	const BFS = require('./graphs/graph-search').BFS;
+	var output = BFS(graph, startVertex);
+	console.log("************BFS*****************************");
+	console.log(output);
+ 	assert.equal('{"visited":[true,true,true,true,true,true,null],"path":{"0":{"last":null,"distance":0},"1":{"last":0,"distance":1},"2":{"last":0,"distance":1},"3":{"last":1,"distance":2},"4":{"last":2,"distance":2},"5":{"last":3,"distance":3}}}', JSON.stringify(output));
+	startVertex = 6;
+	var output = BFS(graph, startVertex);
+	console.log(output);
+	assert.equal('{"visited":[null,null,null,null,null,null,true],"path":{"6":{"last":null,"distance":0}}}', JSON.stringify(output));
+}
+
+function testSCC() {
+	var fs  = require("fs");
+	function createGraphs(input, max) {
+		var graph = new Array(max )
+		console.log(graph.length);
+		var graphT = new Array(max )
+		for (var i = 0; i < input.length ; i++) {
+			var edge = input[i];
+
+			var match = edge.match(/([0-9]+)\s+([0-9]+)/);
+			var u = parseInt(match[1]); u--;
+			var v = parseInt(match[2]); v--;
+			if(!graph[u])
+				graph[u] = []
+			if(!graphT[v])
+				graphT[v] = []
+			graph[u].push(v);
+			graphT[v].push(u);
+		};
+		return {
+			graph: graph,
+			graphT: graphT
+		}
+	}
+	input = [
+  	"1 4",
+  	"7 1",
+  	"4 7",
+  	"9 7",
+  	"6 9",
+  	"9 3",
+  	"3 6",
+  	"8 6",
+  	"2 8",
+  	"5 2",
+  	"8 5",
+	]
+	console.log(">>>>>>>>>>>>>>>>>");
+	var graphs = createGraphs(input, 9);
+	console.log(graphs);
+	const Kosaraju = require('./graphs/SCC/scc');
+	console.log(Kosaraju(graphs.graph, graphs.graphT));
+	var input = fs.readFileSync('./graphs/SCC/SCC.txt', 'utf8').split("\n")
+	input.splice(input.length,1);
+	console.log("length of the input",input.length);
+	var graphs = createGraphs(input, 875714);
+	var output = Kosaraju(graphs.graph, graphs.graphT);
+	console.log(output);
+}
+
+/*quick();
 testBinarySearch();
 testQuickSort();
 arrayOfArraysSort();
 ClosestPair();
 UnionFindTest();
 testRSelect();
+testBFS();*/
+testSCC();
